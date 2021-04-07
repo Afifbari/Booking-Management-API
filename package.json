@@ -1,0 +1,11 @@
+{
+  "name": "booking-management-api",
+  "version": "1.0.0",
+  "description": "An API system to manage bookings of Shuttle LTD.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "afifbari",
+  "license": "ISC"
+}
