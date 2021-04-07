@@ -17,5 +17,10 @@ module.exports = (sequelize, DataTypes) => {
 		onDelete: "CASCADE",
 	});
 
+	Time.hasMany(sequelize.models.Route_Point, {
+		foreignKey: "startTime",
+		onDelete: "SET NULL",
+	});
+
 	return Time;
 };
