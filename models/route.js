@@ -6,29 +6,9 @@ module.exports = (sequelize, DataTypes) => {
 			unique: true,
 			validate: {
 				notEmpty: true,
-				is: ["[a-zA-z-0-9 ]", "g"],
+				is: ["[a-zA-Z-0-9 ]", "g"],
 				isUppercase: true,
 				len: [5, 20],
-			},
-		},
-		start: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-				is: ["[a-zA-z-0-9 ]", "g"],
-				isUppercase: true,
-				len: [3, 20],
-			},
-		},
-		end: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-				is: ["[a-zA-z-0-9 ]", "g"],
-				isUppercase: true,
-				len: [3, 20],
 			},
 		},
 		shotest_distance_km: {
@@ -43,6 +23,21 @@ module.exports = (sequelize, DataTypes) => {
 				isNumeric: true,
 			},
 		},
+	});
+
+	Route.hasMany(sequelize.models.Bus, {
+		foreignKey: "routeId",
+		onDelete: "SET NULL",
+	});
+
+	Route.belongsTo(sequelize.models.Point, {
+		foreignKey: "startId",
+		onDelete: "CASCADE",
+	});
+
+	Route.belongsTo(sequelize.models.Point, {
+		foreignKey: "endId",
+		onDelete: "CASCADE",
 	});
 
 	return Route;

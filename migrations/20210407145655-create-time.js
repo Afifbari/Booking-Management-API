@@ -2,43 +2,22 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable("Drivers", {
+		await queryInterface.createTable("Times", {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			first_name: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [3, 20],
-				},
-			},
-			last_name: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [3, 20],
-				},
-			},
-			phone: {
+			time: {
 				type: Sequelize.STRING,
 				allowNull: false,
 				unique: true,
 				validate: {
 					notEmpty: true,
-					is: ["[0-9]", "g"],
+					len: [4, 10],
+					is: ["[A-Z:0-9 ]", "g"],
 				},
-			},
-			company: {
-				type: Sequelize.STRING,
-				allowNull: true,
 			},
 			createdAt: {
 				allowNull: false,
@@ -52,6 +31,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable("Drivers");
+		await queryInterface.dropTable("Times");
 	},
 };

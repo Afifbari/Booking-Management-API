@@ -15,30 +15,26 @@ module.exports = {
 				unique: true,
 				validate: {
 					notEmpty: true,
-					is: ["[a-zA-z-0-9 ]", "g"],
+					is: ["[a-zA-Z-0-9 ]", "g"],
 					isUppercase: true,
 					len: [5, 20],
 				},
 			},
-			start: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					is: ["[a-zA-z-0-9 ]", "g"],
-					isUppercase: true,
-					len: [3, 20],
+			startId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "points",
+					key: "id",
 				},
+				allowNull: false,
 			},
-			end: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					is: ["[a-zA-z-0-9 ]", "g"],
-					isUppercase: true,
-					len: [3, 20],
+			endId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "points",
+					key: "id",
 				},
+				allowNull: false,
 			},
 			shotest_distance_km: {
 				type: Sequelize.INTEGER,
@@ -51,6 +47,14 @@ module.exports = {
 				validate: {
 					isNumeric: true,
 				},
+			},
+			createdAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
 			},
 		});
 	},

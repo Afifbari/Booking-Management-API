@@ -15,7 +15,7 @@ module.exports = {
 				validate: {
 					notEmpty: true,
 					len: [4, 20],
-					is: ["[a-zA-z-0-9]", "g"],
+					is: ["[a-zA-Z-0-9]", "g"],
 				},
 			},
 			type: {
@@ -25,6 +25,22 @@ module.exports = {
 					notEmpty: true,
 					isAlpha: true,
 				},
+			},
+			routeId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "routes",
+					key: "id",
+				},
+				allowNull: true,
+			},
+			createdAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
 			},
 		});
 	},

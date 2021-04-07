@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 			validate: {
 				notEmpty: true,
 				len: [4, 20],
-				is: ["[a-zA-z-0-9]", "g"],
+				is: ["[a-zA-Z-0-9]", "g"],
 			},
 		},
 		type: {

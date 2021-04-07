@@ -2,53 +2,39 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable("Passengers", {
+		await queryInterface.createTable("Points", {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			first_name: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [3, 20],
-				},
-			},
-			last_name: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [3, 20],
-				},
-			},
-			email: {
+			point_name: {
 				type: Sequelize.STRING,
 				allowNull: false,
 				unique: true,
 				validate: {
 					notEmpty: true,
-					isEmail: true,
-					isLowercase: true,
+					is: ["[a-zA-Z-0-9 ]", "g"],
+					isUppercase: true,
+					len: [3, 20],
 				},
 			},
-			phone: {
+			city: {
 				type: Sequelize.STRING,
-				allowNull: false,
-				unique: true,
 				validate: {
-					notEmpty: true,
-					is: ["[0-9]", "g"],
+					is: ["[a-zA-Z]", "g"],
+					isUppercase: true,
+					len: [3, 20],
 				},
 			},
-			company: {
+			thana: {
 				type: Sequelize.STRING,
-				allowNull: true,
+				validate: {
+					is: ["[a-zA-Z]", "g"],
+					isUppercase: true,
+					len: [3, 20],
+				},
 			},
 			createdAt: {
 				allowNull: false,
@@ -62,6 +48,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable("Passengers");
+		await queryInterface.dropTable("Points");
 	},
 };
