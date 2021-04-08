@@ -25,14 +25,6 @@ module.exports = {
 				},
 				allowNull: false,
 			},
-			startTime: {
-				type: Sequelize.INTEGER,
-				references: {
-					model: "times",
-					key: "id",
-				},
-				allowNull: true,
-			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

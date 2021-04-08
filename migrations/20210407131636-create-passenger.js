@@ -9,16 +9,7 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			first_name: {
-				type: Sequelize.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [3, 20],
-				},
-			},
-			last_name: {
+			name: {
 				type: Sequelize.STRING,
 				allowNull: false,
 				validate: {

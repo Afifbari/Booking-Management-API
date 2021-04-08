@@ -20,22 +20,6 @@ module.exports = {
 					len: [3, 20],
 				},
 			},
-			city: {
-				type: Sequelize.STRING,
-				validate: {
-					is: ["[a-zA-Z]", "g"],
-					isUppercase: true,
-					len: [3, 20],
-				},
-			},
-			thana: {
-				type: Sequelize.STRING,
-				validate: {
-					is: ["[a-zA-Z]", "g"],
-					isUppercase: true,
-					len: [3, 20],
-				},
-			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

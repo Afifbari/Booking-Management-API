@@ -36,16 +36,11 @@ module.exports = {
 				},
 				allowNull: false,
 			},
-			shotest_distance_km: {
+			fare: {
 				type: Sequelize.INTEGER,
 				validate: {
 					isNumeric: true,
-				},
-			},
-			avg_time_minute: {
-				type: Sequelize.INTEGER,
-				validate: {
-					isNumeric: true,
+					min: 0,
 				},
 			},
 			createdAt: {

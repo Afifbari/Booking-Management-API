@@ -32,8 +32,28 @@ module.exports = (sequelize, DataTypes) => {
 				key: "id",
 			},
 		},
-		fare: {
+		pickPoint: {
 			type: DataTypes.INTEGER,
+			allowNull: true,
+			references: {
+				model: sequelize.models.Point,
+				key: "id",
+			},
+		},
+		dropPoint: {
+			type: DataTypes.INTEGER,
+			allowNull: true,
+			references: {
+				model: sequelize.models.Point,
+				key: "id",
+			},
+		},
+		date: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+		isComplete: {
+			type: DataTypes.BOOLEAN,
 			allowNull: true,
 		},
 	});

@@ -16,14 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 				key: "id",
 			},
 		},
-		startTime: {
-			type: DataTypes.INTEGER,
-			allowNull: true,
-			references: {
-				model: sequelize.models.Time,
-				key: "id",
-			},
-		},
 	});
 
 	Route_Point.belongsTo(sequelize.models.Route, {

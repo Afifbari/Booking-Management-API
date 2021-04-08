@@ -1,15 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 	const Driver = sequelize.define("Driver", {
-		first_name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-				isAlpha: true,
-				len: [3, 20],
-			},
-		},
-		last_name: {
+		name: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -34,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	Driver.hasMany(sequelize.models.Booking, {
+		foreignKey: "driverId",
+		onDelete: "SET NULL",
+	});
+
+	Driver.hasOne(sequelize.models.Bus, {
 		foreignKey: "driverId",
 		onDelete: "SET NULL",
 	});

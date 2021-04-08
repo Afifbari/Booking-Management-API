@@ -11,22 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 				len: [3, 20],
 			},
 		},
-		city: {
-			type: DataTypes.STRING,
-			validate: {
-				is: ["[a-zA-Z]", "g"],
-				isUppercase: true,
-				len: [3, 20],
-			},
-		},
-		thana: {
-			type: DataTypes.STRING,
-			validate: {
-				is: ["[a-zA-Z]", "g"],
-				isUppercase: true,
-				len: [3, 20],
-			},
-		},
 	});
 
 	return Point;

@@ -41,11 +41,29 @@ module.exports = {
 				},
 				allowNull: true,
 			},
-			fare: {
+			pickPoint: {
 				type: Sequelize.INTEGER,
-				validate: {
-					isNumeric: true,
+				references: {
+					model: "points",
+					key: "id",
 				},
+				allowNull: true,
+			},
+			dropPoint: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "points",
+					key: "id",
+				},
+				allowNull: true,
+			},
+			date: {
+				type: Sequelize.DATE,
+				allowNull: false,
+			},
+			isCompleted: {
+				type: Sequelize.BOOLEAN,
+				allowNull: true,
 			},
 			createdAt: {
 				allowNull: false,

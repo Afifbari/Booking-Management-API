@@ -1,15 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 	const Passenger = sequelize.define("Passenger", {
-		first_name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-				isAlpha: true,
-				len: [3, 20],
-			},
-		},
-		last_name: {
+		name: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {

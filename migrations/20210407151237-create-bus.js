@@ -18,6 +18,15 @@ module.exports = {
 					is: ["[a-zA-Z-0-9]", "g"],
 				},
 			},
+			name: {
+				type: Sequelize.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+					len: [4, 20],
+					is: ["[a-zA-Z-0-9 ]", "g"],
+				},
+			},
 			type: {
 				type: Sequelize.STRING,
 				allowNull: false,
@@ -30,6 +39,14 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				references: {
 					model: "routes",
+					key: "id",
+				},
+				allowNull: true,
+			},
+			driverId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "drivers",
 					key: "id",
 				},
 				allowNull: true,
