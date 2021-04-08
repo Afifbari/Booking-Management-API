@@ -40,5 +40,10 @@ module.exports = (sequelize, DataTypes) => {
 		onDelete: "CASCADE",
 	});
 
+	Route.hasMany(sequelize.models.Booking, {
+		foreignKey: "routeId",
+		onDelete: "SET NULL",
+	});
+
 	return Route;
 };

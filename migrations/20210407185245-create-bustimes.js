@@ -13,7 +13,7 @@ module.exports = {
 			busId: {
 				type: Sequelize.INTEGER,
 				references: {
-					model: "bus",
+					model: "buses",
 					key: "id",
 				},
 				allowNull: false,
@@ -21,7 +21,7 @@ module.exports = {
 			timeId: {
 				type: Sequelize.INTEGER,
 				references: {
-					model: "time",
+					model: "times",
 					key: "id",
 				},
 				allowNull: false,

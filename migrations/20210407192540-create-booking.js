@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable("Route_points", {
+		await queryInterface.createTable("Bookings", {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -15,23 +15,37 @@ module.exports = {
 					model: "routes",
 					key: "id",
 				},
-				allowNull: false,
+				allowNull: true,
 			},
-			pointId: {
+			busTimeId: {
 				type: Sequelize.INTEGER,
 				references: {
-					model: "points",
-					key: "id",
-				},
-				allowNull: false,
-			},
-			startTime: {
-				type: Sequelize.INTEGER,
-				references: {
-					model: "times",
+					model: "bus_times",
 					key: "id",
 				},
 				allowNull: true,
+			},
+			passengerId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "passengers",
+					key: "id",
+				},
+				allowNull: true,
+			},
+			driverId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: "drivers",
+					key: "id",
+				},
+				allowNull: true,
+			},
+			fare: {
+				type: Sequelize.INTEGER,
+				validate: {
+					isNumeric: true,
+				},
 			},
 			createdAt: {
 				allowNull: false,
@@ -45,6 +59,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable("Route_points");
+		await queryInterface.dropTable("Bookings");
 	},
 };

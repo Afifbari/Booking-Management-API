@@ -43,5 +43,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	});
 
+	Passenger.hasMany(sequelize.models.Booking, {
+		foreignKey: "passengerId",
+		onDelete: "SET NULL",
+	});
+
 	return Passenger;
 };

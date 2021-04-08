@@ -33,5 +33,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	});
 
+	Driver.hasMany(sequelize.models.Booking, {
+		foreignKey: "driverId",
+		onDelete: "SET NULL",
+	});
+
 	return Driver;
 };
