@@ -10,7 +10,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			time: {
-				type: Sequelize.STRING,
+				type: Sequelize.TIME,
 				allowNull: false,
 				unique: true,
 				validate: {

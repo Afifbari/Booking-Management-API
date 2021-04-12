@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 				notEmpty: true,
 				is: ["[a-zA-Z-0-9 ]", "g"],
 				isUppercase: true,
-				len: [5, 20],
+				len: [5, 100],
 			},
 		},
 		fare: {
@@ -18,6 +18,16 @@ module.exports = (sequelize, DataTypes) => {
 				min: 0,
 			},
 		},
+	});
+
+	Route.belongsTo(sequelize.models.Point, {
+		foreignKey: "startId",
+		onDelete: "CASCADE",
+	});
+
+	Route.belongsTo(sequelize.models.Point, {
+		foreignKey: "endId",
+		onDelete: "CASCADE",
 	});
 
 	Route.hasMany(sequelize.models.Bus, {

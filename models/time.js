@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 	const Time = sequelize.define("Time", {
 		time: {
-			type: DataTypes.STRING,
+			type: DataTypes.TIME,
 			allowNull: false,
 			unique: true,
 			validate: {
