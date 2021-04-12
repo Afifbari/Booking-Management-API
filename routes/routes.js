@@ -10,10 +10,10 @@ router.get("/", routeMiddlewares.getRoutes);
 // Create a route
 router.post("/create", routeMiddlewares.createRoute);
 
-// Update a route
-router.put("/update", routeMiddlewares.updateRoute);
+// // Update a route
+// router.put("/update", routeMiddlewares.updateRoute);
 
-// Delete a route
-router.delete("/delete", routeMiddlewares.deleteRoute);
+// // Delete a route
+// router.delete("/delete", routeMiddlewares.deleteRoute);
 
 module.exports = router;

@@ -3,10 +3,12 @@ const db = require("./models");
 
 // Route imports
 const passengerRoutes = require("./routes/passengers");
+const driverRoutes = require("./routes/drivers");
 const timeRoutes = require("./routes/times");
 const pointRoutes = require("./routes/points");
 const routeRoutes = require("./routes/routes");
 const routePointRoutes = require("./routes/routePoints");
+const busRoutes = require("./routes/buses");
 
 // Initializing express
 const app = express();
@@ -22,6 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 // Passenger
 app.use("/passenger/", passengerRoutes);
 
+// Driver
+app.use("/driver/", driverRoutes);
+
 // Time
 app.use("/time/", timeRoutes);
 
@@ -31,7 +36,10 @@ app.use("/point/", pointRoutes);
 // Route
 app.use("/route/", routeRoutes);
 
-// Route
+// Bus
+app.use("/bus/", busRoutes);
+
+// Route Point
 app.use("/routePoint/", routePointRoutes);
 
 db.sequelize.sync().then((req) => {

@@ -1,4 +1,4 @@
-const { Route, Point, sequelize } = require("../models");
+const { Route, Point, Route_Point, sequelize } = require("../models");
 
 // Get all routes
 exports.getRoutes = (req, res) => {
@@ -7,60 +7,117 @@ exports.getRoutes = (req, res) => {
 
 // Create a route
 exports.createRoute = async (req, res) => {
-	const { startId, endId, fare } = req.body;
+	const { pointsId, fare } = req.body;
 
-	if (!startId || !endId) {
-		return res.json({ msg: "Please enter both startId & endId." });
+	console.log(pointsId);
+
+	for (const pointId of pointsId) {
+		if (typeof pointId != "number") {
+			return res.json({ msg: "Please enter valid points." });
+		}
+
+		let pointExits = await Point.findOne({ where: { id: pointId } });
+
+		if (!pointExits) {
+			return res.json({ msg: "Please enter valid points." });
+		}
 	}
 
-	let startObject = await Point.findOne({ where: { id: startId } });
-	let endObject = await Point.findOne({ where: { id: endId } });
+	let startPointObject = await Point.findOne({
+		where: { id: pointsId[0] },
+	});
+	let startPoint = startPointObject.point_name;
 
-	if (!startObject) {
-		return res.json({
-			msg: "Please enter correct startId.",
-		});
-	}
+	let endPointObject = await Point.findOne({
+		where: { id: pointsId[pointsId.length - 1] },
+	});
+	let endPoint = endPointObject.point_name;
 
-	if (!endObject) {
-		return res.json({
-			msg: "Please enter correct endId.",
-		});
-	}
+	console.log(startPoint);
+	console.log(endPoint);
 
 	if (
 		fare === undefined ||
 		fare.length === 0 ||
-		!Number.isInteger(parseInt(fare))
+		!Number.isInteger(fare)
 	) {
 		return res.json({
 			msg: "Please enter correct fare.",
 		});
 	}
 
-	let exists = await Route.findOne({
-		where: {
-			route_name: startObject.point_name + "-" + endObject.point_name,
-		},
+	let routeObject = await Route.create({
+		route_name: startPoint + "-" + endPoint,
+		fare: fare,
 	});
 
-	if (exists) {
-		return res.json({ msg: "The route already exists." });
+	for (const pointId of pointsId) {
+		let routePointObject = await Route_Point.create({
+			routeId: routeObject.id,
+			pointId: pointId,
+		});
+
+		console.log(routePointObject);
 	}
 
-	Route.create({
-		startId: startObject.id,
-		endId: endObject.id,
-		route_name: startObject.point_name + "-" + endObject.point_name,
-		fare: parseInt(fare),
-	})
-		.then((route) => res.json({ route }))
-		.catch((err) => {
-			console.log(err);
-			res.json({
-				msg: "Error occured while saving route in database.",
-			});
-		});
+	res.json({ routeObject });
+
+	console.log(routeObject.id);
+
+	// const { startId, endId, fare } = req.body;
+
+	// if (!startId || !endId) {
+	// 	return res.json({ msg: "Please enter both startId & endId." });
+	// }
+
+	// let startObject = await Point.findOne({ where: { id: startId } });
+	// let endObject = await Point.findOne({ where: { id: endId } });
+
+	// if (!startObject) {
+	// 	return res.json({
+	// 		msg: "Please enter correct startId.",
+	// 	});
+	// }
+
+	// if (!endObject) {
+	// 	return res.json({
+	// 		msg: "Please enter correct endId.",
+	// 	});
+	// }
+
+	// if (
+	// 	fare === undefined ||
+	// 	fare.length === 0 ||
+	// 	!Number.isInteger(parseInt(fare))
+	// ) {
+	// 	return res.json({
+	// 		msg: "Please enter correct fare.",
+	// 	});
+	// }
+
+	// let exists = await Route.findOne({
+	// 	where: {
+	// 		route_name: startObject.point_name + "-" + endObject.point_name,
+	// 	},
+	// });
+
+	// if (exists) {
+	// 	return res.json({ msg: "The route already exists." });
+	// }
+
+	// Route.create({
+	// 	startId: startObject.id,
+	// 	endId: endObject.id,
+	// 	route_name: startObject.point_name + "-" + endObject.point_name,
+	// 	fare: parseInt(fare),
+	// })
+	// 	.then((route) => res.json({ route }))
+	// 	.catch((err) => {
+	// 		console.log(err);
+	// 		res.json({
+	// 			msg: "Error occured while saving route in database.",
+	// 		});
+	// 	});
 };
 
 // Update a route

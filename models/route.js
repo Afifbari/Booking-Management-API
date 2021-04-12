@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
 		route_name: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			unique: true,
 			validate: {
 				notEmpty: true,
 				is: ["[a-zA-Z-0-9 ]", "g"],
@@ -20,15 +19,15 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	});
 
-	Route.belongsTo(sequelize.models.Point, {
-		foreignKey: "startId",
-		onDelete: "CASCADE",
-	});
+	// Route.belongsTo(sequelize.models.Point, {
+	// 	foreignKey: "startId",
+	// 	onDelete: "CASCADE",
+	// });
 
-	Route.belongsTo(sequelize.models.Point, {
-		foreignKey: "endId",
-		onDelete: "CASCADE",
-	});
+	// Route.belongsTo(sequelize.models.Point, {
+	// 	foreignKey: "endId",
+	// 	onDelete: "CASCADE",
+	// });
 
 	Route.hasMany(sequelize.models.Bus, {
 		foreignKey: "routeId",

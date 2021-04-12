@@ -7,11 +7,10 @@ exports.getPassengers = (req, res) => {
 
 // Create a passenger
 exports.createPassenger = (req, res) => {
-	const { firstName, lastName, email, phone, company } = req.body;
+	const { name, email, phone, company } = req.body;
 
 	Passenger.create({
-		first_name: firstName,
-		last_name: lastName,
+		name,
 		email,
 		phone,
 		company,
