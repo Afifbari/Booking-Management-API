@@ -19,6 +19,13 @@ module.exports = (sequelize, DataTypes) => {
 				isLowercase: true,
 			},
 		},
+		password: {
+			type: DataTypes.STRING,
+			// allowNull: false,
+			// validate: {
+			// 	notEmpty: true,
+			// },
+		},
 		phone: {
 			type: DataTypes.STRING,
 			allowNull: false,

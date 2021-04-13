@@ -28,6 +28,13 @@ module.exports = {
 					isLowercase: true,
 				},
 			},
+			password: {
+				type: Sequelize.STRING,
+				// allowNull: false,
+				// validate: {
+				// 	notEmpty: true,
+				// },
+			},
 			phone: {
 				type: Sequelize.STRING,
 				allowNull: false,

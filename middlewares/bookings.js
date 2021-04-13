@@ -8,6 +8,7 @@ const {
 	Passenger,
 	Point,
 } = require("../models");
+const jwtdecode = require("jwt-decode");
 
 // Get all bookings
 exports.getAllBookings = (req, res) => {
@@ -17,6 +18,15 @@ exports.getAllBookings = (req, res) => {
 // Create a booking
 exports.createBooking = async (req, res) => {
 	const { busTimeId, passengerId, date } = req.body;
+
+	const decoded = jwtdecode(req.headers["authorization"]);
+	const user = decoded.user;
+
+	if (user.userType !== "passenger") {
+		return res.json({
+			msg: "Access not allowed for your user type.",
+		});
+	}
 
 	let busTimeObject = await Bus_Time.findOne({
 		where: { id: busTimeId },
@@ -90,10 +100,19 @@ exports.getAllBookings = (req, res) => {
 
 // Sort passenger booking according to date
 exports.getAllBookingsDateSort = (req, res) => {
-	const { passengerId } = req.body;
+	// const { passengerId } = req.body;
+
+	const decoded = jwtdecode(req.headers["authorization"]);
+	const user = decoded.user;
+
+	if (user.userType !== "passenger") {
+		return res.json({
+			msg: "Access not allowed for your user type.",
+		});
+	}
 
 	Booking.findAll({
-		where: { passengerId },
+		where: { passengerId: user.id },
 		order: [["date", "ASC"]],
 	}).then((bookings) => res.json({ bookings }));
 };
@@ -101,6 +120,15 @@ exports.getAllBookingsDateSort = (req, res) => {
 // Cancel Booking
 exports.cancelBooking = async (req, res) => {
 	const { bookingId, passengerId } = req.body;
+
+	const decoded = jwtdecode(req.headers["authorization"]);
+	const user = decoded.user;
+
+	if (user.userType !== "passenger") {
+		return res.json({
+			msg: "Access not allowed for your user type.",
+		});
+	}
 
 	let bookingObject = await Point.findOne({
 		where: { id: bookingId },

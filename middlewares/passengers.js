@@ -7,6 +7,8 @@ const {
 	Bus_Time,
 	Time,
 } = require("../models");
+const jwt = require("jsonwebtoken");
+const jwtdecode = require("jwt-decode");
 
 // Get all passengers
 exports.getPassengers = (req, res) => {
@@ -106,4 +108,25 @@ exports.searchRoute = async (req, res) => {
 	res.json({ routes });
 };
 
-// Search
+// Login
+exports.login = async (req, res) => {
+	const { email, password } = req.body;
+
+	let passenger = await Passenger.findOne({
+		where: { email, password },
+	});
+
+	if (passenger) {
+		passenger.dataValues["userType"] = "passenger";
+
+		console.log(passenger);
+
+		jwt.sign({ user: passenger }, "secretkey", (err, token) => {
+			res.json({
+				token,
+			});
+		});
+	} else {
+		res.json({ msg: "Email/password is incorrect." });
+	}
+};

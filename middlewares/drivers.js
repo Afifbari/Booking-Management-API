@@ -9,6 +9,8 @@ const {
 	Time,
 	Booking,
 } = require("../models");
+const jwt = require("jsonwebtoken");
+const jwtdecode = require("jwt-decode");
 
 // Get all drivers
 exports.getDrivers = (req, res) => {
@@ -33,18 +35,38 @@ exports.createDriver = (req, res) => {
 
 // See driver bookings
 exports.getBookings = async (req, res) => {
-	const { driverId } = req.body;
+	const decoded = jwtdecode(req.headers["authorization"]);
+	const user = decoded.user;
 
-	const bookings = await Booking.findAll({ where: { driverId } });
+	if (user.userType !== "driver") {
+		return res.json({
+			msg: "Access not allowed for your user type.",
+		});
+	}
+
+	const bookings = await Booking.findAll({
+		where: { driverId: user.id },
+	});
 
 	res.json({ bookings });
 };
 
 // See driver buses
 exports.getBuses = async (req, res) => {
-	const { driverId } = req.body;
+	// const { driverId } = req.body;
 
-	const busObjects = await Bus.findAll({ where: { driverId } });
+	const decoded = jwtdecode(req.headers["authorization"]);
+	const user = decoded.user;
+
+	if (user.userType !== "driver") {
+		return res.json({
+			msg: "Access not allowed for your user type.",
+		});
+	}
+
+	const busObjects = await Bus.findAll({
+		where: { driverId: user.id },
+	});
 
 	let buses = [];
 
@@ -70,4 +92,27 @@ exports.getBuses = async (req, res) => {
 	}
 
 	res.json({ buses });
+};
+
+// Login
+exports.login = async (req, res) => {
+	const { phone, password } = req.body;
+
+	let driver = await Driver.findOne({
+		where: { phone, password },
+	});
+
+	if (driver) {
+		driver.dataValues["userType"] = "driver";
+
+		console.log(driver);
+
+		jwt.sign({ user: driver }, "secretkey", (err, token) => {
+			res.json({
+				token,
+			});
+		});
+	} else {
+		res.json({ msg: "Email/password is incorrect." });
+	}
 };

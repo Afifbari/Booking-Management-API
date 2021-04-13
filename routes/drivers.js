@@ -10,7 +10,10 @@ router.get("/", driverMiddlewares.getDrivers);
 // Create a driver
 router.post("/create", driverMiddlewares.createDriver);
 
+// Login driver
+router.post("/login", driverMiddlewares.login);
+
 // Search all buses
-router.post("/buses", driverMiddlewares.getBuses);
+router.get("/buses", driverMiddlewares.getBuses);
 
 module.exports = router;

@@ -18,6 +18,13 @@ module.exports = (sequelize, DataTypes) => {
 				is: ["[0-9]", "g"],
 			},
 		},
+		password: {
+			type: DataTypes.STRING,
+			// allowNull: false,
+			// validate: {
+			// 	notEmpty: true,
+			// },
+		},
 		company: {
 			type: DataTypes.STRING,
 			allowNull: true,

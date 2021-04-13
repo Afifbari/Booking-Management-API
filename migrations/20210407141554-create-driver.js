@@ -27,6 +27,13 @@ module.exports = {
 					is: ["[0-9]", "g"],
 				},
 			},
+			password: {
+				type: Sequelize.STRING,
+				// allowNull: false,
+				// validate: {
+				// 	notEmpty: true,
+				// },
+			},
 			company: {
 				type: Sequelize.STRING,
 				allowNull: true,
