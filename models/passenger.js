@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 				is: ["[0-9]", "g"],
 			},
 		},
-		company_name: {
+		company: {
 			type: DataTypes.STRING,
 			allowNull: true,
 		},

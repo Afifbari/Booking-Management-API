@@ -9,6 +9,7 @@ const pointRoutes = require("./routes/points");
 const routeRoutes = require("./routes/routes");
 const routePointRoutes = require("./routes/routePoints");
 const busRoutes = require("./routes/buses");
+const bookingRoutes = require("./routes/bookings");
 
 // Initializing express
 const app = express();
@@ -41,6 +42,9 @@ app.use("/bus/", busRoutes);
 
 // Route Point
 app.use("/routePoint/", routePointRoutes);
+
+// Booking
+app.use("/booking/", bookingRoutes);
 
 db.sequelize.sync().then((req) => {
 	app.listen(3000, () => {
