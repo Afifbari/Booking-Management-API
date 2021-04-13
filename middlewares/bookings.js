@@ -78,3 +78,48 @@ exports.createBooking = async (req, res) => {
 		res.json({ error });
 	}
 };
+
+// Get passenger booking
+exports.getAllBookings = (req, res) => {
+	const { passengerId } = req.body;
+
+	Booking.findAll({ where: { passengerId } }).then((bookings) =>
+		res.json({ bookings })
+	);
+};
+
+// Sort passenger booking according to date
+exports.getAllBookingsDateSort = (req, res) => {
+	const { passengerId } = req.body;
+
+	Booking.findAll({
+		where: { passengerId },
+		order: [["date", "ASC"]],
+	}).then((bookings) => res.json({ bookings }));
+};
+
+// Cancel Booking
+exports.cancelBooking = async (req, res) => {
+	const { bookingId, passengerId } = req.body;
+
+	let bookingObject = await Point.findOne({
+		where: { id: bookingId },
+	});
+
+	if (bookingObject) {
+		Booking.destroy({
+			where: {
+				id: bookingId,
+			},
+		})
+			.then((data) => res.json({ msg: "Booking deleted." }))
+			.catch((err) => {
+				console.log(err);
+				res.json({
+					msg: "Error occured while deleting booking in database.",
+				});
+			});
+	} else {
+		res.json({ msg: "There is no such booking ID." });
+	}
+};

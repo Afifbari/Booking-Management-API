@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DATE,
 			allowNull: false,
 		},
-		isComplete: {
+		isCompleted: {
 			type: DataTypes.BOOLEAN,
 			allowNull: true,
 		},

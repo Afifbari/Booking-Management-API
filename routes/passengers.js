@@ -10,4 +10,7 @@ router.get("/", passengerMiddlewares.getPassengers);
 // Create a passenger
 router.post("/create", passengerMiddlewares.createPassenger);
 
+// Search route
+router.post("/search-route", passengerMiddlewares.searchRoute);
+
 module.exports = router;

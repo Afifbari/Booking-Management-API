@@ -10,4 +10,7 @@ router.get("/", bookingMiddlewares.getAllBookings);
 // Create a booking
 router.post("/create", bookingMiddlewares.createBooking);
 
+// Sort a booking
+router.post("/sort", bookingMiddlewares.getAllBookingsDateSort);
+
 module.exports = router;
